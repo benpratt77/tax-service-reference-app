@@ -1,0 +1,111 @@
+{
+  "id": "a0112593-392e-4e7c-8c54-e0904c471699",
+  "currency_code": "USD",
+  "customer": {
+    "customer_id": "1",
+    "customer_group_id": "0",
+    "taxability_code": ""
+  },
+  "transaction_date": {
+    "date": "2018-10-24 03:27:31.649218",
+    "timezone_type": 3,
+    "timezone": "GMT"
+  },
+  "documents": [
+    {
+      "id": "5bcfe69324d78",
+      "billing_address": {
+        "line1": "11305 4 Points Dr",
+        "line2": "",
+        "city": "Austin",
+        "region_name": "Texas",
+        "region_code": "TX",
+        "country_name": "United States",
+        "country_code": "US",
+        "postal_code": "78726",
+        "company_name": "",
+        "type": "residential"
+      },
+      "destination_address": {
+        "line1": "11305 4 Points Dr",
+        "line2": "",
+        "city": "Austin",
+        "region_name": "Texas",
+        "region_code": "TX",
+        "country_name": "United States",
+        "country_code": "US",
+        "postal_code": "78726",
+        "company_name": "",
+        "type": "residential"
+      },
+      "origin_address": {
+        "line1": "11305 FOUR POINTS DR",
+        "line2": "",
+        "city": "AUSTIN",
+        "region_name": "Texas",
+        "region_code": "TX",
+        "country_name": "United States",
+        "country_code": "US",
+        "postal_code": "78726",
+        "company_name": "",
+        "type": ""
+      },
+      "shipping": {
+        "id": "5bcfe69324d78",
+        "item_code": "Free Shipping",
+        "name": "Shipping to Austin, United States 78726",
+        "price": {
+          "amount": 0,
+          "tax_inclusive": false
+        },
+        "quantity": 1,
+        "tax_class": {
+          "code": "FR",
+          "class_id": 2,
+          "name": "Shipping"
+        },
+        "tax_exempt": false,
+        "type": "shipping",
+        "wrapping": null
+      },
+      "handling": {
+        "id": "5bcfe69324d78",
+        "item_code": "Free Shipping",
+        "name": "Handling for Austin, United States 78726",
+        "price": {
+          "amount": 0,
+          "tax_inclusive": false
+        },
+        "quantity": 1,
+        "tax_class": {
+          "code": "OH010000",
+          "class_id": 2,
+          "name": "Handling"
+        },
+        "tax_exempt": false,
+        "type": "handling",
+        "wrapping": null
+      },
+      "items": [
+        {
+          "id": "a1b5135c-de21-434c-a0dd-65cfe62121d2",
+          "item_code": "OCG",
+          "name": "[Sample] Oak Cheese Grater",
+          "price": {
+            "amount": 34.95,
+            "tax_inclusive": false
+          },
+          "quantity": 1,
+          "tax_class": {
+            "code": "",
+            "class_id": 0,
+            "name": "Default Tax Class"
+          },
+          "tax_exempt": false,
+          "type": "item",
+          "wrapping": null
+        }
+      ]
+    }
+  ]
+}

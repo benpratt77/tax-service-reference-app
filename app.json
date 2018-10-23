@@ -1,0 +1,7 @@
+{
+  "name": "BigCommerce Tax Service Sample",
+  "description": "Simple example of how to integrate with the BigCommerce Tax Service, using the PHP Silex microframework",
+  "repository": "https://github.com/benpratt77/tax-service-reference-app",
+  "logo": "https://developer.bigcommerce.com/images/developer.png",
+  "keywords": ["php", "silex", "bigcommerce", "tax"]
+}
