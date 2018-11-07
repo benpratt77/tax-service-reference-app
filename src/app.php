@@ -1,6 +1,5 @@
 <?php
 
-use BCSample\Tax\Helper\SampleFixtureLoader;
 use BCSample\Tax\Provider\TaxEstimateServiceProvider;
 use Silex\Application;
 use Silex\Provider\AssetServiceProvider;
@@ -22,10 +21,6 @@ $app->register(new MonologServiceProvider(), array(
 ));
 
 
-$app[SampleFixtureLoader::class] = function ()
-{
-    return new SampleFixtureLoader();
-};
 
 // app specific dependencies
 $app->register(new TaxEstimateServiceProvider());

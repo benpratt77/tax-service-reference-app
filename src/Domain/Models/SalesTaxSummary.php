@@ -6,31 +6,34 @@ use BCSample\Tax\Helper\SampleTaxLineFactory;
 
 class SalesTaxSummary {
 
-
     const SUMMARY_NAME = 'Brutal Tax';
 
     private $name;
     private $rate;
     private $amount;
+    private $taxClass;
 
     public function __construct($tax)
     {
         $this->name = self::SUMMARY_NAME;
         $this->rate = SampleTaxLineFactory::SAMPLE_TAX_RATE;
         $this->amount = $tax;
-        $this->taxClass = [
-            'class_id' => '0',
-            'name' => self::SUMMARY_NAME,
-            "code" => "US"
-        ];
+        /** @var TaxClass taxClass */
+        $this->taxClass = new TaxClass();
     }
 
-    public function toArray(){
+    /**
+     * @return array
+     */
+    public function toArray(): array
+    {
         $output = [];
         $output['name'] = $this->name;
         $output['rate'] = $this->rate;
         $output['amount'] = $this->amount;
-        $output['tax_class'] = $this->taxClass;
+        $output['tax_class'] = $this->taxClass->toArray();
+        $output['id'] = "Brutal Tax";
+
         return $output;
     }
 }

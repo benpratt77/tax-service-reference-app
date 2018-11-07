@@ -2,14 +2,16 @@
 
 {% block content %}
 <div>
-    This is a sample implementation of a Tax Service integration with BigCommerce.
-</div>
-<div>
-    Please go to the DOCS for more info on how to extend this application.
+    Welcome to Sample Tax, an example of a Tax Integration with BigCommerce OpenTaxAPI.
 </div>
 <br/>
 <div>
-    POST to /sample-tax-service/estimate in the supported format to return some sample tax estimates.
+    <p>POST to /sample-tax-service/estimate in the supported format to return some sample tax estimates.</p>
+    <h5>Examples:</h5>
+    <ul>
+        <li><a href="/samplerequest">Sample request</a> -- This is an example of what BigCommerce will send</li>
+        <li><a href="/sampleresponse">Sample response</a> -- This is an example of what BigCommerce expects to receive back</li>
+    </ul>
 </div>
 <br/>
 {% endblock %}

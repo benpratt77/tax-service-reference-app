@@ -11,5 +11,4 @@ interface SimpleEstimateAPIServiceInterface
      * @return array An array formatted according to the BigCommerce Carrier Service Response format
      */
     function getEstimate(array $requestPayload);
-
 }

@@ -2,26 +2,24 @@
 
 namespace BCSample\Tax\Helper;
 
-
-use BCSample\Tax\Domain\Models\Price;
+use BCSample\Tax\Domain\Models\Item;
 
 class SampleTaxLineFactory
 {
     const SAMPLE_TAX_RATE = 0.5;
 
-    public function processLine(array $data): array
+    /**
+     * Processes an items from the document form submission.
+     * This can either be a purchased Item, Shipping or Handling
+     *
+     * @param array $data
+     * @param string $type
+     * @return array
+     */
+    public function processItem(array $data, string $type): array
     {
-        $line = [];
-
-        $price = new Price($data['price']);
-        $line['price'] = $price->toArray();
-
-        $line['id'] = $data['id'];
-        $line['wrapping'] = null;
-        $line['type'] = 'item';
-
-        $taxDetails['line'] = $line;
-
+        $item = new Item($data, $type);
+        $taxDetails[$type] = $item->toArray();
         return $taxDetails;
     }
 }

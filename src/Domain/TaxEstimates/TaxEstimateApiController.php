@@ -20,7 +20,12 @@ class TaxEstimateAPIController
         $this->estimateAPIService = $estimateAPIService;
     }
 
-    public function getEstimate(Request $request)
+    /**
+     * Route /estimate
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function getEstimate(Request $request): JsonResponse
     {
         $requestPayload = json_decode($request->getContent(), true);
 
@@ -42,7 +47,11 @@ class TaxEstimateAPIController
         return $response;
     }
 
-    private function buildErrorResponseBody(string $message)
+    /**
+     * @param string $message
+     * @return array
+     */
+    private function buildErrorResponseBody(string $message): array
     {
         return [
             'messages' => [
@@ -54,10 +63,38 @@ class TaxEstimateAPIController
         ];
     }
 
-    private function validatePayload($requestPayload)
+    /**
+     * @param $requestPayload
+     * @return bool
+     */
+    private function validatePayload($requestPayload): bool
     {
+        //@todo valdiate against no storehash in the header.
 
-        //todo add in validation.
-        return !is_null($requestPayload) && is_array($requestPayload);
+        $documents = $requestPayload['documents'];
+        if (!$documents) {
+            return false;
+        }
+        foreach ($documents as $document) {
+            if (!isset($document['shipping']) || !isset($document['handling'])) {
+                return false;
+            }
+
+            $items = $document['items'];
+            if (!$items) {
+                return false;
+            }
+
+            foreach ($items as $item) {
+                if (!isset($item['id']) || !isset($item['price'])) {
+                    return false;
+                }
+                if (!isset($item['price']['amount']) || !isset($item['price']['tax_inclusive'])) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
     }
 }

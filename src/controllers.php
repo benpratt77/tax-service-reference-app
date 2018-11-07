@@ -3,14 +3,25 @@
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-//Request::setTrustedProxies(array('127.0.0.1'));
-
 $app->get('/', function () use ($app) {
     return $app['twig']->render(
         'index.html.twig',
         []
     );
 })->bind('homepage');
+$app->get('/samplerequest', function () use ($app) {
+    return $app['twig']->render(
+        'samplerequest.html.twig',
+        []
+    );
+})->bind('sampleRequest');
+
+$app->get('/sampleresponse', function () use ($app) {
+    return $app['twig']->render(
+        'sampleresponse.html.twig',
+        []
+    );
+})->bind('sampleResponse');
 
 $app->error(function (\Exception $e, Request $request, $code) use ($app) {
     if ($app['debug']) {

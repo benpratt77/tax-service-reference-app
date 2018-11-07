@@ -4,7 +4,6 @@ namespace BCSample\Tax\Provider;
 
 use BCSample\Tax\Domain\TaxEstimates\TaxEstimateAPIController;
 use BCSample\Tax\Domain\TaxEstimates\StubbedTaxEstimateAPIService;
-use BCSample\Tax\Helper\SampleFixtureLoader;
 use BCSample\Tax\Helper\SampleTaxLineFactory;
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
@@ -26,7 +25,6 @@ class TaxEstimateServiceProvider implements ServiceProviderInterface
         $app[SampleTaxLineFactory::class] = new SampleTaxLineFactory();
 
         $app[StubbedTaxEstimateAPIService::class] = new StubbedTaxEstimateAPIService(
-            $app[SampleFixtureLoader::class],
             $app['monolog'],
             $app[SampleTaxLineFactory::class]
 

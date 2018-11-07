@@ -1,0 +1,74 @@
+{
+  "documents": [
+    {
+      "external_id": "sample666",
+      "id": "sample666",
+      "items": [
+        {
+          "id": "61b61481-78b6-42c1-ac4f-053461976633",
+          "price": {
+            "amount_inclusive": 52.43000000000001,
+            "amount_exclusive": 34.95,
+            "totalTax": 17.48,
+            "tax_rate": 0.5,
+            "sales_tax_summary": {
+              "name": "Brutal Tax",
+              "rate": 0.5,
+              "amount": 17.48,
+              "tax_class": {
+                "class_id": "0",
+                "name": "Brutal TAx",
+                "code": "US"
+              }
+            }
+          },
+          "type": "item",
+          "wrapping": null
+        }
+      ],
+      "shipping": {
+        "id": "0",
+        "price": {
+          "amount_inclusive": 22.5,
+          "amount_exclusive": 15,
+          "totalTax": 7.5,
+          "tax_rate": 0.5,
+          "sales_tax_summary": {
+            "name": "Brutal Tax",
+            "rate": 0.5,
+            "amount": 7.5,
+            "tax_class": {
+              "class_id": "0",
+              "name": "Brutal TAx",
+              "code": "US"
+            }
+          }
+        },
+        "type": "shipping",
+        "wrapping": null
+      },
+      "handling": {
+        "id": "0",
+        "price": {
+          "amount_inclusive": 36,
+          "amount_exclusive": 24,
+          "totalTax": 12,
+          "tax_rate": 0.5,
+          "sales_tax_summary": {
+            "name": "Brutal Tax",
+            "rate": 0.5,
+            "amount": 12,
+            "tax_class": {
+              "class_id": "0",
+              "name": "Brutal TAx",
+              "code": "US"
+            }
+          }
+        },
+        "type": "handling",
+        "wrapping": null
+      }
+    }
+  ],
+  "id": "SampleTax711411322"
+}
