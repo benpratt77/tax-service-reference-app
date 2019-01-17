@@ -9,6 +9,7 @@ $app->get('/', function () use ($app) {
         []
     );
 })->bind('homepage');
+
 $app->get('/samplerequest', function () use ($app) {
     return $app['twig']->render(
         'samplerequest.html.twig',
@@ -22,6 +23,13 @@ $app->get('/sampleresponse', function () use ($app) {
         []
     );
 })->bind('sampleResponse');
+
+$app->get('/todo', function () use ($app) {
+    return $app['twig']->render(
+        'todo.html.twig',
+        []
+    );
+})->bind('todo');
 
 $app->error(function (\Exception $e, Request $request, $code) use ($app) {
     if ($app['debug']) {

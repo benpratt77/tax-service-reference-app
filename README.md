@@ -18,6 +18,7 @@ Check composer.json but in general:
 ```
     $ git clone ...
     $ composer install
+    $ npm install
     $ COMPOSER_PROCESS_TIMEOUT=0 composer run
 ```
 

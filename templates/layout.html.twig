@@ -2,11 +2,15 @@
 <html>
     <head>
         <title>{% block title '' %} - Sample Tax Service implementation</title>
-
         <link href="{{ asset('css/main.css') }}" rel="stylesheet" type="text/css" />
     </head>
     <body>
-    <h1>Sample Tax Provider</h1>
+    <h1>Sample Tax Provider Crush the weak</h1>
         {% block content %}{% endblock %}
+        <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+        <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+        <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+         {% block javascript %}
+        {% endblock %}
     </body>
 </html>

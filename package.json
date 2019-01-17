@@ -1,0 +1,38 @@
+{
+  "name": "tax-service-reference-app",
+  "version": "1.0.0",
+  "description": "This is a very simple reference application based on the PHP Silex microframework, that demonstrates how to process a request from the BigCommerce Tax Service integration and return a valid response. It is designed to quickly deploy to Heroku and let you get started on your development with minimal ramp-up.",
+  "main": "index.js",
+  "directories": {
+    "example": "examples",
+    "test": "tests"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/benpratt77/tax-service-reference-app.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/benpratt77/tax-service-reference-app/issues"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.9.1",
+    "babel-loader": "^6.2.4",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-preset-es2015": "^6.9.0",
+    "babel-preset-react": "^6.5.0",
+    "babel-preset-stage-2": "^6.13.0",
+    "css-loader": "^0.23.1",
+    "file-loader": "^0.9.0",
+    "json-loader": "^0.5.4",
+    "jsx-loader": "^0.13.2",
+    "react": "^16.6.3",
+    "style-loader": "^0.13.1",
+    "webpack": "^1.13.1",
+    "webpack-dev-server": "^1.14.1",
+    "tree-creator-bp" : "^1.1.0"
+  }
+}
