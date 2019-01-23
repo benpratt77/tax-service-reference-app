@@ -1,14 +1,13 @@
 <?php
 
-namespace BCSample\Tax\Domain\TaxEstimates;
+namespace BCSample\Tax\Domain\Tax;
 
 use BCSample\Tax\Domain\Models\Item;
 use BCSample\Tax\Helper\SampleTaxLineFactory;
 use Psr\Log\LoggerInterface;
 
-class StubbedTaxEstimateAPIService implements SimpleEstimateAPIServiceInterface
+class StubbedTaxAPIService implements SimpleAPIServiceInterface
 {
-
     /** @var LoggerInterface */
     private $logger;
     /**  @var SampleTaxLineFactory */
@@ -18,7 +17,7 @@ class StubbedTaxEstimateAPIService implements SimpleEstimateAPIServiceInterface
      * @param LoggerInterface $logger
      * @param SampleTaxLineFactory $sampleTaxLineFactory
      */
-    public function __construct( LoggerInterface $logger, SampleTaxLineFactory $sampleTaxLineFactory)
+    public function __construct(LoggerInterface $logger, SampleTaxLineFactory $sampleTaxLineFactory)
     {
         $this->logger = $logger;
         $this->sampleTaxLineFactory = $sampleTaxLineFactory;
@@ -46,5 +45,14 @@ class StubbedTaxEstimateAPIService implements SimpleEstimateAPIServiceInterface
             $result['handling'] = $handling->toArray();
         }
         return $result;
+    }
+
+    /**
+     * @param array $requestPayload
+     * @return array
+     */
+    function commitQuote(array $requestPayload)
+    {
+        return $this->getEstimate($requestPayload);
     }
 }

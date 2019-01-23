@@ -44,16 +44,16 @@ Or do the manual thing...
 
 ## Sample app contents
 
-The default landing page contains an overview of how to trigger various Tax Estimate responses from the sample app.
+The default landing page contains an overview of how to trigger various Tax responses from the sample app.
 
 
-- `TaxEstimateServiceProvider.php` registers (within the DI container) the API controller and service (below) for the BC sample responses provided
+- `TaxServiceProvider.php` registers (within the DI container) the API controller and service (below) for the BC sample responses provided
 
-- `TaxEstimateAPIController.php` the basic API controller with minimal validation and error handling to pass POST requests to an API service
+- `TaxAPIController.php` the basic API controller with minimal validation and error handling to pass POST requests to an API service
 
-- `StubbedTaxEstimateAPIService.php` the basic estimate API service that returns a static json file based on the estimate request destination country code
+- `StubbedTaxAPIService.php` the basic API service that returns a response.
 
-- `SimpleEstimateAPIServiceInterface.php` a simple interface that you can extend from to build to your own estimate service (just change the provider above to instantiate your new service instead of the stubbed one)
+- `SimpleAPIServiceInterface.php` a simple interface that you can extend from to build to your own tax service (just change the provider above to instantiate your new service instead of the stubbed one)
 
 
 ## Disclaimer
