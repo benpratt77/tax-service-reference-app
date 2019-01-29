@@ -9,7 +9,7 @@ class SampleTaxLineFactory
     const SAMPLE_TAX_RATE = 0.5;
 
     /**
-     * Processes an items from the document form submission.
+     * Processes an item from the document form submission.
      * This can either be a purchased Item, Shipping or Handling
      *
      * @param array $data

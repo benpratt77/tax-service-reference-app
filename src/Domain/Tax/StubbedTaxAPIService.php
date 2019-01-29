@@ -8,6 +8,14 @@ use Psr\Log\LoggerInterface;
 
 class StubbedTaxAPIService implements SimpleAPIServiceInterface
 {
+    const SHIPPING = 'shipping';
+    const HANDLING = 'handling';
+    const EXTERNAL_ID = 'external_id';
+    const ID_VALUE = 'sample666';
+    const DOCUMENTS ='documents';
+    const ITEMS = 'items';
+    const ITEM_SINGULAR = 'item';
+
     /** @var LoggerInterface */
     private $logger;
     /**  @var SampleTaxLineFactory */
@@ -29,30 +37,43 @@ class StubbedTaxAPIService implements SimpleAPIServiceInterface
      */
     public function getEstimate(array $requestPayload): array
     {
-        $result['external_id'] = 'sample666';
-        $this->logger->info("{$result['external_id']} sent a document request");
-        $result['id'] = 'sample666';
-        $documents = $requestPayload['documents'];
+        $result[self::EXTERNAL_ID] = self::ID_VALUE;
+        $this->logger->info("{$result[self::EXTERNAL_ID]} sent a document request");
+        $result['id'] = self::ID_VALUE;
+        $documents = $requestPayload[self::DOCUMENTS];
         foreach ($documents as $document) {
 
-            foreach ($document['items'] as $item) {
-                $taxLine = $this->sampleTaxLineFactory->processItem($item, 'item');
-                $result['items'][] = $taxLine['item'];
+            foreach ($document[self::ITEMS] as $item) {
+                $taxLine = $this->sampleTaxLineFactory->processItem($item, self::ITEM_SINGULAR);
+                $result[self::ITEMS][] = $taxLine[self::ITEM_SINGULAR];
             }
-            $shipping = new Item($document['shipping'], 'shipping');
-            $handling = new Item($document['handling'], 'handling');
-            $result['shipping'] = $shipping->toArray();
-            $result['handling'] = $handling->toArray();
+            $shipping = new Item($document[self::SHIPPING], self::SHIPPING);
+            $handling = new Item($document[self::HANDLING], self::HANDLING);
+            $result[self::SHIPPING] = $shipping->toArray();
+            $result[self::HANDLING] = $handling->toArray();
         }
         return $result;
     }
 
     /**
+     * At this stage we are just simulating a quote, in future we will add functionality to commit.
      * @param array $requestPayload
      * @return array
      */
-    function commitQuote(array $requestPayload)
+    function commitQuote(array $requestPayload): array
     {
         return $this->getEstimate($requestPayload);
     }
+
+    /**
+     * At this stage we are just simulating a quote, in future we will add functionality to the adjust.
+     * @param array $requestPayload
+     * @return array
+     */
+    function adjustQuote(array $requestPayload): array
+    {
+        $id = $requestPayload[self::EXTERNAL_ID];
+        return $this->getEstimate($requestPayload);
+    }
+
 }

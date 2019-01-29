@@ -2,6 +2,7 @@
 
 namespace BCSample\Tax\Domain\Tax;
 
+use BCSample\Tax\Domain\Tax\Validators\TaxAdjustValidator;
 use BCSample\Tax\Domain\Tax\Validators\TaxCommitValidator;
 use BCSample\Tax\Domain\Tax\Validators\TaxEstimateValidator;
 use Symfony\Component\Config\Definition\Exception\Exception;
@@ -10,6 +11,14 @@ use Symfony\Component\HttpFoundation\Request;
 
 class TaxAPIController
 {
+    const BC_HEADER = 'X-BC-Store-Hash';
+    const ERROR_INCORRECT_HEADERS = 'Incorrect headers provided';
+    const ERROR_BADLY_FORMATTED = 'Badly Formatted request';
+    const SAMPLE_TAX = 'SampleTax';
+    const DOCUMENTS = 'documents';
+    const ID = 'id';
+
+
     /** @var StubbedTaxAPIService */
     private $taxAPIService;
 
@@ -19,20 +28,26 @@ class TaxAPIController
     /** @var TaxCommitValidator */
     private $taxCommitValidator;
 
+    /** @var TaxAdjustValidator */
+    private $taxAdjustValidator;
+
     /**
      * TaxAPIController constructor.
      * @param StubbedTaxAPIService $taxAPIService
      * @param TaxEstimateValidator $taxEstimateValidator
      * @param TaxCommitValidator $taxCommitValidator
+     * @param TaxAdjustValidator $taxAdjustValidator
      */
     public function __construct(
         StubbedTaxAPIService $taxAPIService,
         TaxEstimateValidator $taxEstimateValidator,
-        TaxCommitValidator $taxCommitValidator
+        TaxCommitValidator $taxCommitValidator,
+        TaxAdjustValidator $taxAdjustValidator
     ) {
         $this->taxAPIService = $taxAPIService;
         $this->taxEstimateValidator = $taxEstimateValidator;
         $this->taxCommitValidator = $taxCommitValidator;
+        $this->taxAdjustValidator = $taxAdjustValidator;
     }
 
     /**
@@ -42,17 +57,17 @@ class TaxAPIController
      */
     public function getEstimate(Request $request): JsonResponse
     {
+        if(!$request->headers->get(self::BC_HEADER)){
+            return new JsonResponse($this->buildErrorResponseBody(self::ERROR_INCORRECT_HEADERS));
+        }
         $requestPayload = json_decode($request->getContent(), true);
-
         if (!$this->taxEstimateValidator->validateEstimatePayload($requestPayload)) {
-            return new JsonResponse($this->buildErrorResponseBody('Badly formatted request'));
+            return new JsonResponse($this->buildErrorResponseBody(self::ERROR_BADLY_FORMATTED));
         }
         try {
-            // Simply gets a base response without content
             $estimate = $this->taxAPIService->getEstimate($requestPayload);
-            $result['documents'][] = $estimate;
-            $result['id'] = 'SampleTax' . rand();
-
+            $result[self::DOCUMENTS][] = $estimate;
+            $result[self::ID] = self::SAMPLE_TAX . rand();
         } catch (Exception $e) {
             return new JsonResponse($this->buildErrorResponseBody($e->getMessage()));
         }
@@ -69,15 +84,45 @@ class TaxAPIController
      */
     public function commit(Request $request): JsonResponse
     {
+        if(!$request->headers->get(self::BC_HEADER)){
+            return new JsonResponse($this->buildErrorResponseBody(self::ERROR_INCORRECT_HEADERS));
+        }
         $requestPayload = json_decode($request->getContent(), true);
-
         if (!$this->taxCommitValidator->validateCommitPayload($requestPayload)) {
-            return new JsonResponse($this->buildErrorResponseBody('Badly Formatted request'));
+            return new JsonResponse($this->buildErrorResponseBody(self::ERROR_BADLY_FORMATTED));
         }
         try {
             $commit = $this->taxAPIService->commitQuote($requestPayload);
-            $result['documents'][] = $commit;
-            $result['id'] = 'SampleTax' . rand();
+            $result[self::DOCUMENTS][] = $commit;
+            $result[self::ID] = self::SAMPLE_TAX . rand();
+        } catch (Exception $e) {
+            return new JsonResponse($this->buildErrorResponseBody($e->getMessage()));
+        }
+
+        $response = new JsonResponse($result);
+        $response->setEncodingOptions(JSON_PRESERVE_ZERO_FRACTION);
+
+        return $response;
+    }
+
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function adjust(Request $request): JsonResponse
+    {
+        if(!$request->headers->get(self::BC_HEADER)){
+            return new JsonResponse($this->buildErrorResponseBody(self::ERROR_INCORRECT_HEADERS));
+        }
+        $requestPayload = json_decode($request->getContent(), true);
+
+        if (!$this->taxAdjustValidator->validateAdjustPayload($requestPayload)) {
+            return new JsonResponse($this->buildErrorResponseBody(self::ERROR_BADLY_FORMATTED));
+        }
+        try {
+            $commit = $this->taxAPIService->adjustQuote($requestPayload);
+            $result[self::DOCUMENTS][] = $commit;
+            $result[self::ID] = self::SAMPLE_TAX . rand();
         } catch (Exception $e) {
             return new JsonResponse($this->buildErrorResponseBody($e->getMessage()));
         }

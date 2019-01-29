@@ -8,11 +8,17 @@ interface SimpleAPIServiceInterface
      * @param array $requestPayload An array conforming to the BigCommerce OpenTaxApi Request format
      * @return array An array formatted according to the BigCommerce OpenTaxApi Response format
      */
-    function getEstimate(array $requestPayload);
+    function getEstimate(array $requestPayload): array;
 
     /**
      * @param array $requestPayload An array conforming to the BigCommerce OpenTaxApi Request format
-     * @return array Confirmation that the Quote has been commit to file.
+     * @return array Confirmation that the Quote has been committed.
      */
-    function commitQuote(array $requestPayload);
+    function commitQuote(array $requestPayload): array;
+
+    /**
+     * @param array $requestPayload An array conforming to the BigCommerce OpenTaxApi Request format
+     * @return array Confirmation that the Quote has been adjusted to match the update
+     */
+    function adjustQuote(array $requestPayload): array;
 }

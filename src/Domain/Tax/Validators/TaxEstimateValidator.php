@@ -4,7 +4,6 @@ namespace BCSample\Tax\Domain\Tax\Validators;
 
 class TaxEstimateValidator
 {
-
     /**
      * @param $requestPayload
      * @return bool

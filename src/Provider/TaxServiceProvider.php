@@ -4,6 +4,7 @@ namespace BCSample\Tax\Provider;
 
 use BCSample\Tax\Domain\Tax\TaxAPIController;
 use BCSample\Tax\Domain\Tax\StubbedTaxAPIService;
+use BCSample\Tax\Domain\Tax\Validators\TaxAdjustValidator;
 use BCSample\Tax\Domain\Tax\Validators\TaxCommitValidator;
 use BCSample\Tax\Domain\Tax\Validators\TaxEstimateValidator;
 use BCSample\Tax\Helper\SampleTaxLineFactory;
@@ -29,16 +30,20 @@ class TaxServiceProvider implements ServiceProviderInterface
             $app['monolog'],
             $app[SampleTaxLineFactory::class]
         );
+
         $app[TaxEstimateValidator::class] = new TaxEstimateValidator();
         $app[TaxCommitValidator::class] = new TaxCommitValidator(
             $app[TaxEstimateValidator::class]
         );
-
+        $app[TaxAdjustValidator::class] = new TaxAdjustValidator(
+            $app[TaxEstimateValidator::class]
+        );
         $app[TaxAPIController::class] =
             new TaxAPIController(
                 $app[StubbedTaxAPIService::class],
                 $app[TaxEstimateValidator::class],
-                $app[TaxCommitValidator::class]
+                $app[TaxCommitValidator::class],
+                $app[TaxAdjustValidator::class]
             );
     }
 }
