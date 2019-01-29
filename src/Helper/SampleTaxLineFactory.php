@@ -7,6 +7,11 @@ use BCSample\Tax\Domain\Models\Item;
 class SampleTaxLineFactory
 {
     const SAMPLE_TAX_RATE = 0.5;
+    const DOCUMENTS = 'documents';
+    const ITEMS = 'items';
+    const SHIPPING = 'shipping';
+    const HANDLING = 'handling';
+    const EXTERNAL_ID = 'external_id';
 
     /**
      * Processes an item from the document form submission.

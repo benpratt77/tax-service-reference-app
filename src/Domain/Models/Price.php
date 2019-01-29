@@ -7,6 +7,7 @@ use BCSample\Tax\Helper\SampleTaxLineFactory;
 class Price
 {
     const AMOUNT = 'amount';
+    const PRICE = 'price';
 
     private $amountInclusive;
     private $amountExclusive;
