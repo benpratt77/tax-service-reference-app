@@ -2,6 +2,8 @@
 
 namespace BCSample\Tax\Domain\Tax\Validators;
 
+use BCSample\Tax\Helper\SampleTaxLineFactory;
+
 class TaxAdjustValidator
 {
     /** @var TaxEstimateValidator */
@@ -25,7 +27,7 @@ class TaxAdjustValidator
         // Adjust requires an external_id in order to know which document to update.
         // At present this is just checking for the keys existence.
         // In future we can check that the value has been saved. But at present Heroku is preventing us from storing these details.
-        if (!$requestPayload['external_id']) {
+        if (!$requestPayload[SampleTaxLineFactory::EXTERNAL_ID]) {
             return false;
         }
         if (!$this->taxEstimateValidator->validateEstimatePayload($requestPayload)) {

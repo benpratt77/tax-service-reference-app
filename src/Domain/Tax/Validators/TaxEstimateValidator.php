@@ -2,6 +2,8 @@
 
 namespace BCSample\Tax\Domain\Tax\Validators;
 
+use BCSample\Tax\Helper\SampleTaxLineFactory;
+
 class TaxEstimateValidator
 {
     /**
@@ -10,8 +12,7 @@ class TaxEstimateValidator
      */
     public function validateEstimatePayload($requestPayload): bool
     {
-        //@todo validate against no store-hash in the header.
-        $documents = $requestPayload['documents'];
+        $documents = $requestPayload[SampleTaxLineFactory::DOCUMENTS];
         if (!$documents) {
             return false;
         }

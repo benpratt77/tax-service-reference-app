@@ -5,6 +5,7 @@ namespace BCSample\Tax\Domain\Tax;
 use BCSample\Tax\Domain\Tax\Validators\TaxAdjustValidator;
 use BCSample\Tax\Domain\Tax\Validators\TaxCommitValidator;
 use BCSample\Tax\Domain\Tax\Validators\TaxEstimateValidator;
+use BCSample\Tax\Helper\SampleTaxLineFactory;
 use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,7 +16,6 @@ class TaxAPIController
     const ERROR_INCORRECT_HEADERS = 'Incorrect headers provided';
     const ERROR_BADLY_FORMATTED = 'Badly Formatted request';
     const SAMPLE_TAX = 'SampleTax';
-    const DOCUMENTS = 'documents';
     const ID = 'id';
 
 
@@ -61,12 +61,12 @@ class TaxAPIController
             return new JsonResponse($this->buildErrorResponseBody(self::ERROR_INCORRECT_HEADERS));
         }
         $requestPayload = json_decode($request->getContent(), true);
-        if (!$this->taxEstimateValidator->validateEstimatePayload($requestPayload)) {
+        if(!$this->taxEstimateValidator->validateEstimatePayload($requestPayload)){
             return new JsonResponse($this->buildErrorResponseBody(self::ERROR_BADLY_FORMATTED));
         }
         try {
             $estimate = $this->taxAPIService->getEstimate($requestPayload);
-            $result[self::DOCUMENTS][] = $estimate;
+            $result[SampleTaxLineFactory::DOCUMENTS][] = $estimate;
             $result[self::ID] = self::SAMPLE_TAX . rand();
         } catch (Exception $e) {
             return new JsonResponse($this->buildErrorResponseBody($e->getMessage()));
@@ -93,7 +93,7 @@ class TaxAPIController
         }
         try {
             $commit = $this->taxAPIService->commitQuote($requestPayload);
-            $result[self::DOCUMENTS][] = $commit;
+            $result[SampleTaxLineFactory::DOCUMENTS][] = $commit;
             $result[self::ID] = self::SAMPLE_TAX . rand();
         } catch (Exception $e) {
             return new JsonResponse($this->buildErrorResponseBody($e->getMessage()));
@@ -121,7 +121,7 @@ class TaxAPIController
         }
         try {
             $commit = $this->taxAPIService->adjustQuote($requestPayload);
-            $result[self::DOCUMENTS][] = $commit;
+            $result[SampleTaxLineFactory::DOCUMENTS][] = $commit;
             $result[self::ID] = self::SAMPLE_TAX . rand();
         } catch (Exception $e) {
             return new JsonResponse($this->buildErrorResponseBody($e->getMessage()));
