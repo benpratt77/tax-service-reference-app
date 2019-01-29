@@ -15,17 +15,18 @@ class TaxClass
         $this->name = $name ?: "Brutal TAx";
     }
 
-    /**
-     * @return array
-     */
-    public function toArray(): array
+    public function getId()
     {
-        $output = [];
-        $output['class_id'] = $this->id;
-        $output['name'] = $this->name;
-        $output['code'] = $this->code;
-
-        return $output;
+        return $this->id;
     }
 
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    public function getCode()
+    {
+        return $this->code;
+    }
 }

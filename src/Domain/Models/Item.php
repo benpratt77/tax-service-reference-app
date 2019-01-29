@@ -17,17 +17,23 @@ class Item
         $this->wrapping = null;
     }
 
-    /**
-     * @return array
-     */
-    public function toArray(): array
+    public function getId()
     {
-        $output = [];
-        $output['id'] = $this->id;
-        $output['price'] = $this->price->toArray();
-        $output['type'] = $this->type;
-        $output['wrapping'] = $this->wrapping;
+        return $this->id;
+    }
 
-        return $output;
+    public function getPrice()
+    {
+        return $this->price;
+    }
+
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    public function getWrapping()
+    {
+        return $this->wrapping;
     }
 }

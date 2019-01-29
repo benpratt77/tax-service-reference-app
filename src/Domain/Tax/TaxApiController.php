@@ -57,11 +57,11 @@ class TaxAPIController
      */
     public function getEstimate(Request $request): JsonResponse
     {
-        if(!$request->headers->get(self::BC_HEADER)){
+        if (!$request->headers->get(self::BC_HEADER)) {
             return new JsonResponse($this->buildErrorResponseBody(self::ERROR_INCORRECT_HEADERS));
         }
         $requestPayload = json_decode($request->getContent(), true);
-        if(!$this->taxEstimateValidator->validateEstimatePayload($requestPayload)){
+        if (!$this->taxEstimateValidator->validateEstimatePayload($requestPayload)) {
             return new JsonResponse($this->buildErrorResponseBody(self::ERROR_BADLY_FORMATTED));
         }
         try {
@@ -84,7 +84,7 @@ class TaxAPIController
      */
     public function commit(Request $request): JsonResponse
     {
-        if(!$request->headers->get(self::BC_HEADER)){
+        if (!$request->headers->get(self::BC_HEADER)) {
             return new JsonResponse($this->buildErrorResponseBody(self::ERROR_INCORRECT_HEADERS));
         }
         $requestPayload = json_decode($request->getContent(), true);
@@ -111,7 +111,7 @@ class TaxAPIController
      */
     public function adjust(Request $request): JsonResponse
     {
-        if(!$request->headers->get(self::BC_HEADER)){
+        if (!$request->headers->get(self::BC_HEADER)) {
             return new JsonResponse($this->buildErrorResponseBody(self::ERROR_INCORRECT_HEADERS));
         }
         $requestPayload = json_decode($request->getContent(), true);

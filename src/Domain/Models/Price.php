@@ -24,19 +24,24 @@ class Price
         $this->salesTaxSummary = new SalesTaxSummary($this->totalTax);
     }
 
-    /**
-     * @return array
-     */
-    public function toArray(): array
+    public function getAmountInclusive()
     {
-        $output = [];
-        $output['amount_inclusive'] = $this->amountInclusive;
-        $output['amount_exclusive'] = $this->amountExclusive;
-        $output['total_tax'] = $this->totalTax;
-        $output['tax_rate'] = SampleTaxLineFactory::SAMPLE_TAX_RATE;
-        $output['sales_tax_summary'] = [$this->salesTaxSummary->toArray()];
+        return $this->amountInclusive;
+    }
 
-        return $output;
+    public function getAmountExclusive()
+    {
+        return $this->amountExclusive;
+    }
+
+    public function getTotalTax()
+    {
+        return $this->totalTax;
+    }
+
+    public function getSalesTaxSummary()
+    {
+        return $this->salesTaxSummary;
     }
 
     /**

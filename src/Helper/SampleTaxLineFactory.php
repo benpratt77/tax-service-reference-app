@@ -3,6 +3,7 @@
 namespace BCSample\Tax\Helper;
 
 use BCSample\Tax\Domain\Models\Item;
+use BCSample\Tax\Domain\Tax\Transformers\ItemTransformer;
 
 class SampleTaxLineFactory
 {
@@ -12,6 +13,25 @@ class SampleTaxLineFactory
     const SHIPPING = 'shipping';
     const HANDLING = 'handling';
     const EXTERNAL_ID = 'external_id';
+
+    /** @var ItemTransformer */
+    private $itemTransformer;
+
+    /** @var Transformer */
+    private $transformer;
+
+    /**
+     * SampleTaxLineFactory constructor.
+     * @param ItemTransformer $itemTransformer
+     * @param Transformer $transformer
+     */
+    public function __construct(
+        ItemTransformer $itemTransformer,
+        Transformer $transformer
+    ) {
+        $this->itemTransformer = $itemTransformer;
+        $this->transformer = $transformer;
+    }
 
     /**
      * Processes an item from the document form submission.
@@ -24,7 +44,8 @@ class SampleTaxLineFactory
     public function processItem(array $data, string $type): array
     {
         $item = new Item($data, $type);
-        $taxDetails[$type] = $item->toArray();
+        $taxDetails[$type] = $this->transformer->transform($item, $this->itemTransformer);
+
         return $taxDetails;
     }
 }

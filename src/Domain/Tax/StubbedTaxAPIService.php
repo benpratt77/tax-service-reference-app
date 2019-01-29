@@ -3,7 +3,10 @@
 namespace BCSample\Tax\Domain\Tax;
 
 use BCSample\Tax\Domain\Models\Item;
+use BCSample\Tax\Domain\Tax\Transformers\ItemTransformer;
 use BCSample\Tax\Helper\SampleTaxLineFactory;
+use BCSample\Tax\Helper\Transformer;
+use League\Fractal\Manager;
 use Psr\Log\LoggerInterface;
 
 class StubbedTaxAPIService implements SimpleAPIServiceInterface
@@ -13,17 +16,32 @@ class StubbedTaxAPIService implements SimpleAPIServiceInterface
 
     /** @var LoggerInterface */
     private $logger;
+
     /**  @var SampleTaxLineFactory */
     private $sampleTaxLineFactory;
+
+    /**  @var ItemTransformer */
+    private $itemTransformer;
+
+    /** @var Transformer */
+    private $transformer;
 
     /**
      * @param LoggerInterface $logger
      * @param SampleTaxLineFactory $sampleTaxLineFactory
+     * @param ItemTransformer $itemTransformer
+     * @param Transformer $transformer
      */
-    public function __construct(LoggerInterface $logger, SampleTaxLineFactory $sampleTaxLineFactory)
-    {
+    public function __construct(
+        LoggerInterface $logger,
+        SampleTaxLineFactory $sampleTaxLineFactory,
+        ItemTransformer $itemTransformer,
+        Transformer $transformer
+    ) {
         $this->logger = $logger;
         $this->sampleTaxLineFactory = $sampleTaxLineFactory;
+        $this->itemTransformer = $itemTransformer;
+        $this->transformer = $transformer;
     }
 
     /**
@@ -45,9 +63,10 @@ class StubbedTaxAPIService implements SimpleAPIServiceInterface
             }
             $shipping = new Item($document[SampleTaxLineFactory::SHIPPING], SampleTaxLineFactory::SHIPPING);
             $handling = new Item($document[SampleTaxLineFactory::HANDLING], SampleTaxLineFactory::HANDLING);
-            $result[SampleTaxLineFactory::SHIPPING] = $shipping->toArray();
-            $result[SampleTaxLineFactory::HANDLING] = $handling->toArray();
+            $result[SampleTaxLineFactory::SHIPPING] = $this->transformer->transform($shipping, $this->itemTransformer);
+            $result[SampleTaxLineFactory::HANDLING] = $this->transformer->transform($handling, $this->itemTransformer);
         }
+
         return $result;
     }
 
@@ -69,6 +88,7 @@ class StubbedTaxAPIService implements SimpleAPIServiceInterface
     function adjustQuote(array $requestPayload): array
     {
         $id = $requestPayload[SampleTaxLineFactory::EXTERNAL_ID];
+
         return $this->getEstimate($requestPayload, $id);
     }
 

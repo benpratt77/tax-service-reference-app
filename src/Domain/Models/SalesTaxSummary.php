@@ -4,7 +4,8 @@ namespace BCSample\Tax\Domain\Models;
 
 use BCSample\Tax\Helper\SampleTaxLineFactory;
 
-class SalesTaxSummary {
+class SalesTaxSummary
+{
 
     const SUMMARY_NAME = 'Brutal Tax';
     const NAME = 'name';
@@ -23,18 +24,28 @@ class SalesTaxSummary {
         $this->taxClass = new TaxClass();
     }
 
-    /**
-     * @return array
-     */
-    public function toArray(): array
+    public function getId()
     {
-        $output = [];
-        $output[self::NAME] = $this->name;
-        $output['rate'] = $this->rate;
-        $output['amount'] = $this->amount;
-        $output['tax_class'] = $this->taxClass->toArray();
-        $output['id'] = self::SUMMARY_NAME;
+        return $this->id;
+    }
 
-        return $output;
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    public function getRate()
+    {
+        return $this->rate;
+    }
+
+    public function getAmount()
+    {
+        return $this->amount;
+    }
+
+    public function getTaxClass()
+    {
+        return $this->taxClass;
     }
 }
