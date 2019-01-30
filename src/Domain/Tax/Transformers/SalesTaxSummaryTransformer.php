@@ -18,7 +18,7 @@ class SalesTaxSummaryTransformer extends TransformerAbstract
     {
         $this->taxClassTransformer = $taxClassTransformer;
         $this->defaultIncludes = [
-            'taxClass'
+            'tax_class'
         ];
     }
 

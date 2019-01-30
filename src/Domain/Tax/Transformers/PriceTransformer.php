@@ -19,7 +19,7 @@ class PriceTransformer extends TransformerAbstract
     {
         $this->salesTaxSummaryTransformer = $salesTaxSummaryTransformer;
         $this->defaultIncludes = [
-            'salesTaxSummary'
+            'sales_tax_summary'
         ];
     }
 
@@ -35,6 +35,6 @@ class PriceTransformer extends TransformerAbstract
 
     public function includeSalesTaxSummary(Price $price)
     {
-        return $this->item($price->getSalesTaxSummary(), $this->salesTaxSummaryTransformer);
+        return $this->collection($price->getSalesTaxSummary(), $this->salesTaxSummaryTransformer);
     }
 }

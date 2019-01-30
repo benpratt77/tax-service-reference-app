@@ -21,7 +21,7 @@ class Price
         $this->amountInclusive = $data[self::AMOUNT] + $this->totalTax;
         $this->amountExclusive = $data[self::AMOUNT];
         $this->taxRate = SampleTaxLineFactory::SAMPLE_TAX_RATE;
-        $this->salesTaxSummary = new SalesTaxSummary($this->totalTax);
+        $this->salesTaxSummary = [new SalesTaxSummary($this->totalTax)];
     }
 
     public function getAmountInclusive()

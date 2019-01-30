@@ -17,6 +17,7 @@ class SalesTaxSummary
 
     public function __construct($tax)
     {
+        $this->id = self::SUMMARY_NAME;
         $this->name = self::SUMMARY_NAME;
         $this->rate = SampleTaxLineFactory::SAMPLE_TAX_RATE;
         $this->amount = $tax;
