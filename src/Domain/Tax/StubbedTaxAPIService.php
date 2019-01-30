@@ -89,6 +89,7 @@ class StubbedTaxAPIService implements SimpleAPIServiceInterface
     {
         $id = $requestPayload[SampleTaxLineFactory::EXTERNAL_ID];
 
+
         return $this->getEstimate($requestPayload, $id);
     }
 

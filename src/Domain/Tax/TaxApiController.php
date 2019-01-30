@@ -114,9 +114,11 @@ class TaxAPIController
         if (!$request->headers->get(self::BC_HEADER)) {
             return new JsonResponse($this->buildErrorResponseBody(self::ERROR_INCORRECT_HEADERS));
         }
+        $id = $request->get('id');
+
         $requestPayload = json_decode($request->getContent(), true);
 
-        if (!$this->taxAdjustValidator->validateAdjustPayload($requestPayload)) {
+        if (!$this->taxAdjustValidator->validateAdjustPayload($requestPayload, $id)) {
             return new JsonResponse($this->buildErrorResponseBody(self::ERROR_BADLY_FORMATTED));
         }
         try {
