@@ -4,6 +4,7 @@ namespace BCSample\Tax\Domain\Tax\Transformers;
 
 use BCSample\Tax\Domain\Models\Price;
 use BCSample\Tax\Helper\SampleTaxLineFactory;
+use League\Fractal\Resource\Collection;
 use League\Fractal\TransformerAbstract;
 
 class PriceTransformer extends TransformerAbstract
@@ -23,6 +24,10 @@ class PriceTransformer extends TransformerAbstract
         ];
     }
 
+    /**
+     * @param Price $price
+     * @return array
+     */
     public function transform(Price $price)
     {
         return [
@@ -33,6 +38,10 @@ class PriceTransformer extends TransformerAbstract
         ];
     }
 
+    /**
+     * @param Price $price
+     * @return Collection
+     */
     public function includeSalesTaxSummary(Price $price)
     {
         return $this->collection($price->getSalesTaxSummary(), $this->salesTaxSummaryTransformer);

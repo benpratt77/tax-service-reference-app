@@ -3,6 +3,7 @@
 namespace BCSample\Tax\Domain\Tax\Transformers;
 
 use BCSample\Tax\Domain\Models\SalesTaxSummary;
+use League\Fractal\Resource\Item;
 use League\Fractal\TransformerAbstract;
 
 class SalesTaxSummaryTransformer extends TransformerAbstract
@@ -22,6 +23,10 @@ class SalesTaxSummaryTransformer extends TransformerAbstract
         ];
     }
 
+    /**
+     * @param SalesTaxSummary $salesTaxSummary
+     * @return array
+     */
     public function transform(SalesTaxSummary $salesTaxSummary)
     {
         return [
@@ -32,6 +37,10 @@ class SalesTaxSummaryTransformer extends TransformerAbstract
         ];
     }
 
+    /**
+     * @param SalesTaxSummary $salesTaxSummary
+     * @return Item
+     */
     public function includeTaxClass(SalesTaxSummary $salesTaxSummary)
     {
         return $this->item($salesTaxSummary->getTaxClass(), $this->taxClassTransformer);

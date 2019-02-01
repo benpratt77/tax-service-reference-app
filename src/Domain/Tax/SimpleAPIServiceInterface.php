@@ -18,7 +18,8 @@ interface SimpleAPIServiceInterface
 
     /**
      * @param array $requestPayload An array conforming to the BigCommerce OpenTaxApi Request format
+     * @param string $id
      * @return array Confirmation that the Quote has been adjusted to match the update
      */
-    function adjustQuote(array $requestPayload): array;
+    function adjustQuote(array $requestPayload, string $id): array;
 }

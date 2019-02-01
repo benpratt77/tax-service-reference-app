@@ -115,14 +115,13 @@ class TaxAPIController
             return new JsonResponse($this->buildErrorResponseBody(self::ERROR_INCORRECT_HEADERS));
         }
         $id = $request->get('id');
-
         $requestPayload = json_decode($request->getContent(), true);
 
         if (!$this->taxAdjustValidator->validateAdjustPayload($requestPayload, $id)) {
             return new JsonResponse($this->buildErrorResponseBody(self::ERROR_BADLY_FORMATTED));
         }
         try {
-            $commit = $this->taxAPIService->adjustQuote($requestPayload);
+            $commit = $this->taxAPIService->adjustQuote($requestPayload, $id);
             $result[SampleTaxLineFactory::DOCUMENTS][] = $commit;
             $result[self::ID] = self::SAMPLE_TAX . rand();
         } catch (Exception $e) {

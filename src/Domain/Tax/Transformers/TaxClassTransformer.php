@@ -7,6 +7,10 @@ use League\Fractal\TransformerAbstract;
 
 class TaxClassTransformer extends TransformerAbstract
 {
+    /**
+     * @param TaxClass $taxClass
+     * @return array
+     */
     public function transform(TaxClass $taxClass)
     {
         return [

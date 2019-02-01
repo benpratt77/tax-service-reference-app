@@ -6,7 +6,6 @@ use BCSample\Tax\Domain\Models\Item;
 use BCSample\Tax\Domain\Tax\Transformers\ItemTransformer;
 use BCSample\Tax\Helper\SampleTaxLineFactory;
 use BCSample\Tax\Helper\Transformer;
-use League\Fractal\Manager;
 use Psr\Log\LoggerInterface;
 
 class StubbedTaxAPIService implements SimpleAPIServiceInterface
@@ -81,16 +80,13 @@ class StubbedTaxAPIService implements SimpleAPIServiceInterface
     }
 
     /**
-     * At this stage we are just simulating a quote, in future we will add functionality to the adjust.
+     * At this stage we are just simulating a quote an including an externalId, in future we will add functionality to the adjust.
      * @param array $requestPayload
+     * @param string $externalId
      * @return array
      */
-    function adjustQuote(array $requestPayload): array
+    function adjustQuote(array $requestPayload, string $externalId): array
     {
-        $id = $requestPayload[SampleTaxLineFactory::EXTERNAL_ID];
-
-
-        return $this->getEstimate($requestPayload, $id);
+        return $this->getEstimate($requestPayload, $externalId);
     }
-
 }

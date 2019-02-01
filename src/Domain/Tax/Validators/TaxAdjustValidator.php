@@ -2,8 +2,6 @@
 
 namespace BCSample\Tax\Domain\Tax\Validators;
 
-use BCSample\Tax\Helper\SampleTaxLineFactory;
-
 class TaxAdjustValidator
 {
     /** @var TaxEstimateValidator */

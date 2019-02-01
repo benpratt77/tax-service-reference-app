@@ -16,6 +16,11 @@ class Transformer
         $this->manager->setSerializer(new Serializer());
     }
 
+    /**
+     * @param $resource
+     * @param $resourceTransformer
+     * @return array
+     */
     public function transform($resource, $resourceTransformer)
     {
         $result = $this->manager->createData(new Item($resource, $resourceTransformer));

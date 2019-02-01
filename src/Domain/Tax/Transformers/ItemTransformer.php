@@ -20,10 +20,13 @@ class ItemTransformer extends TransformerAbstract
             'price'
         ];
 
-
         $this->priceTransformer = $priceTransformer;
     }
 
+    /**
+     * @param Item $item
+     * @return array
+     */
     public function transform(Item $item)
     {
         return [
@@ -34,6 +37,10 @@ class ItemTransformer extends TransformerAbstract
         ];
     }
 
+    /**
+     * @param Item $item
+     * @return \League\Fractal\Resource\Item
+     */
     public function includePrice(Item $item)
     {
         return $this->item($item->getPrice(), $this->priceTransformer);
