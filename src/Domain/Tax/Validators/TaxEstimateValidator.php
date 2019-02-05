@@ -12,10 +12,10 @@ class TaxEstimateValidator
      */
     public function validateEstimatePayload($requestPayload): bool
     {
-        $documents = $requestPayload[SampleTaxLineFactory::DOCUMENTS];
-        if (!$documents) {
+        if (!isset($requestPayload[SampleTaxLineFactory::DOCUMENTS])) {
             return false;
         }
+        $documents = $requestPayload[SampleTaxLineFactory::DOCUMENTS];
         foreach ($documents as $document) {
             if (!isset($document['shipping']) || !isset($document['handling'])) {
                 return false;

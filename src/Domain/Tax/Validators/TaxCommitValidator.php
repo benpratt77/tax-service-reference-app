@@ -22,7 +22,6 @@ class TaxCommitValidator
      */
     public function validateCommitPayload($requestPayload): bool
     {
-        //todo Add Commit specific validation.
         if (!$this->taxEstimateValidator->validateEstimatePayload($requestPayload)) {
             return false;
         }
