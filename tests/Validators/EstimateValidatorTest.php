@@ -32,7 +32,9 @@ class EstimateValidatorTest extends TestCase
                 ]
             ]
         ];
+
         $result = $this->validator->validateEstimatePayload($data);
+
         $this->assertFalse($result);
     }
 
@@ -47,7 +49,9 @@ class EstimateValidatorTest extends TestCase
                 ]
             ]
         ];
+
         $result = $this->validator->validateEstimatePayload($data);
+
         $this->assertFalse($result);
     }
 
@@ -62,7 +66,9 @@ class EstimateValidatorTest extends TestCase
                 ]
             ]
         ];
+
         $result = $this->validator->validateEstimatePayload($data);
+
         $this->assertFalse($result);
     }
 
@@ -102,7 +108,9 @@ class EstimateValidatorTest extends TestCase
                 ]
             ]
         ];
+
         $result = $this->validator->validateEstimatePayload($data);
+
         $this->assertTrue($result);
     }
 }

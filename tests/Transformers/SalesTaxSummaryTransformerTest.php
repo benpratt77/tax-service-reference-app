@@ -14,9 +14,17 @@ class SalesTaxSummaryTransformerTest extends TestCase
     /** @var TaxClassTransformer */
     private $taxClassTransformer;
 
+    /** @var SalesTaxSummary */
+    private $salesTaxSummary;
+
     public function setUp()
     {
         parent::setUp();
+        $this->salesTaxSummary = $this->prophesize(SalesTaxSummary::class);
+        $this->salesTaxSummary->getId()->willReturn(1);
+        $this->salesTaxSummary->getName()->willReturn('Brutal Tax');
+        $this->salesTaxSummary->getAmount()->willReturn(50);
+        $this->salesTaxSummary->getRate()->willReturn(0.5);
 
         $this->taxClassTransformer = $this->prophesize(TaxClassTransformer::class);
         $this->salesTaxSummaryTransformer = new SalesTaxSummaryTransformer($this->taxClassTransformer->reveal());
@@ -24,18 +32,11 @@ class SalesTaxSummaryTransformerTest extends TestCase
 
     public function testTransformerReturnsCorrectData()
     {
-            /** @var SalesTaxSummary $salesTaxSummary */
-            $salesTaxSummary = $this->prophesize(SalesTaxSummary::class);
-            $salesTaxSummary->getId()->willReturn(1);
-            $salesTaxSummary->getName()->willReturn('Brutal Tax');
-            $salesTaxSummary->getAmount()->willReturn(50);
-            $salesTaxSummary->getRate()->willReturn(0.5);
+        $result = $this->salesTaxSummaryTransformer->transform($this->salesTaxSummary->reveal());
 
-            $result = $this->salesTaxSummaryTransformer->transform($salesTaxSummary->reveal());
-
-            $this->assertEquals(1, $result['id']);
-            $this->assertEquals('Brutal Tax', $result['name']);
-            $this->assertEquals(50, $result['amount']);
-            $this->assertEquals(0.5, $result['rate']);
+        $this->assertEquals(1, $result['id']);
+        $this->assertEquals('Brutal Tax', $result['name']);
+        $this->assertEquals(50, $result['amount']);
+        $this->assertEquals(0.5, $result['rate']);
     }
 }

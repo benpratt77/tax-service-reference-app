@@ -31,6 +31,7 @@ class PriceTransformerTest extends TestCase
     public function testTransformerReturnsCorrectData()
     {
         $result = $this->priceTransformer->transform($this->price->reveal());
+
         $this->assertEquals(30, $result['amount_inclusive']);
         $this->assertEquals(20, $result['amount_exclusive']);
         $this->assertEquals(10, $result['total_tax']);

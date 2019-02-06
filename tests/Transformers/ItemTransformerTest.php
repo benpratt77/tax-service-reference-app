@@ -25,6 +25,11 @@ class ItemTransformerTest extends TestCase
     {
         parent::setUp();
         $this->item = $this->prophesize(Item::class);
+        $this->item->getId()->willReturn(1);
+        $this->item->getType()->willReturn('item');
+        $this->item->getWrapping()->willReturn(null);
+        $this->item->getPrice()->willReturn([]);
+
         $this->price = $this->prophesize(Price::class);
 
         $this->priceTransformer = $this->prophesize(PriceTransformer::class);
@@ -41,47 +46,10 @@ class ItemTransformerTest extends TestCase
 
     public function testTransformerReturnsCorrectData()
     {
-        $this->item->getId()->willReturn(1);
-        $this->item->getType()->willReturn('item');
-        $this->item->getWrapping()->willReturn(null);
-        $this->item->getPrice()->willReturn([]);
-
         $result = $this->itemTransformer->transform($this->item->reveal());
 
         $this->assertEquals('item', $result['type']);
         $this->assertNull($result['wrapping']);
         $this->assertEquals(1, $result['id']);
-
-
     }
-
-    //  this is currently working when used but I cannot get the transform to process the Price item in this test.
-//    public function testTransformerIncludesPrice()
-//    {
-//        $this->price->getTotalTax()->willReturn(10)->shouldBeCalled();
-//        $this->price->getAmountInclusive()->willReturn(30)->shouldBeCalled();
-//        $this->price->getAmountExclusive()->willReturn(20)->shouldBeCalled();
-//
-//        $this->item->getId()->willReturn(1);
-//        $this->item->getType()->willReturn('item');
-//        $this->item->getWrapping()->willReturn(null);
-//        $d = [
-//            'amount' => 20,
-//            'tax_inclusive' => false,
-//        ];
-//        $this->item->getPrice()->willReturn($this->price->reveal());
-//
-//        $result = $this->itemTransformer->transform($this->item->reveal());
-//        $expected = [
-//            'id' => 1,
-//            'type' => 'item',
-//            'wrapping' => null,
-//            'price' => [
-//                'amount' => 20,
-//                'tax_inclusive' => false,
-//            ]
-//        ];
-//
-//        $this->assertEquals($expected, $result);
-//    }
 }
