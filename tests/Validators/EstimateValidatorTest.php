@@ -10,12 +10,11 @@ class EstimateValidatorTest extends TestCase
     /** @var TaxEstimateValidator */
     private $validator;
 
-    public function setUp()/* The :void return type declaration that should be here would cause a BC issue */
+    public function setUp()
     {
         parent::setUp();
         $this->validator = new TaxEstimateValidator();
     }
-
 
     public function testFailsWithNoDocuments()
     {
@@ -66,7 +65,6 @@ class EstimateValidatorTest extends TestCase
         $result = $this->validator->validateEstimatePayload($data);
         $this->assertFalse($result);
     }
-
 
     public function testPassesWithValidData()
     {
