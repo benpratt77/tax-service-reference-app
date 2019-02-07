@@ -22,4 +22,9 @@ interface SimpleAPIServiceInterface
      * @return array Confirmation that the Quote has been adjusted to match the update
      */
     function adjustQuote(array $requestPayload, string $id): array;
+
+    /**
+     * @return bool
+     */
+    function void(): bool;
 }

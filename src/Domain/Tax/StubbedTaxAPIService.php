@@ -72,4 +72,12 @@ class StubbedTaxAPIService implements SimpleAPIServiceInterface
         return $this->getEstimate($requestPayload, $id);
     }
 
+    /**
+     * Since our application does not have storage we don't need to actually do anything here.
+     * @return bool
+     */
+    function void(): bool
+    {
+        return true;
+    }
 }

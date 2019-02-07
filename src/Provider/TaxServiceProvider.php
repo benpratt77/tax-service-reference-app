@@ -7,6 +7,7 @@ use BCSample\Tax\Domain\Tax\StubbedTaxAPIService;
 use BCSample\Tax\Domain\Tax\Validators\TaxAdjustValidator;
 use BCSample\Tax\Domain\Tax\Validators\TaxCommitValidator;
 use BCSample\Tax\Domain\Tax\Validators\TaxEstimateValidator;
+use BCSample\Tax\Domain\Tax\Validators\TaxVoidValidator;
 use BCSample\Tax\Helper\SampleTaxLineFactory;
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
@@ -38,12 +39,14 @@ class TaxServiceProvider implements ServiceProviderInterface
         $app[TaxAdjustValidator::class] = new TaxAdjustValidator(
             $app[TaxEstimateValidator::class]
         );
+        $app[TaxVoidValidator::class] = new TaxVoidValidator();
         $app[TaxAPIController::class] =
             new TaxAPIController(
                 $app[StubbedTaxAPIService::class],
                 $app[TaxEstimateValidator::class],
                 $app[TaxCommitValidator::class],
-                $app[TaxAdjustValidator::class]
+                $app[TaxAdjustValidator::class],
+                $app[TaxVoidValidator::class]
             );
     }
 }
