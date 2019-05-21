@@ -17,7 +17,7 @@
               "amount": 17.48,
               "tax_class": {
                 "class_id": "0",
-                "name": "Brutal TAx",
+                "name": "Brutal Tax",
                 "code": "US"
               }
             }
@@ -39,7 +39,7 @@
             "amount": 7.5,
             "tax_class": {
               "class_id": "0",
-              "name": "Brutal TAx",
+              "name": "Brutal Tax",
               "code": "US"
             }
           }
@@ -60,7 +60,7 @@
             "amount": 12,
             "tax_class": {
               "class_id": "0",
-              "name": "Brutal TAx",
+              "name": "Brutal Tax",
               "code": "US"
             }
           }

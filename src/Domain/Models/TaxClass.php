@@ -12,7 +12,7 @@ class TaxClass
     {
         $this->id = $id ?: "0";
         $this->code = $code ?: "US";
-        $this->name = $name ?: "Brutal TAx";
+        $this->name = $name ?: "Brutal Tax";
     }
 
     /**
@@ -27,5 +27,4 @@ class TaxClass
 
         return $output;
     }
-
 }
