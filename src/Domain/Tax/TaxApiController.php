@@ -130,7 +130,7 @@ class TaxAPIController
         try {
             $commit = $this->taxAPIService->adjustQuote($requestPayload, $id);
             $result[SampleTaxLineFactory::DOCUMENTS][] = $commit;
-            $result['adjust_description'] = $requestPayload['adjust_description'];
+//            $result['adjust_description'] = $requestPayload['adjust_description'] ?? 'no reason provided';
             $result[self::ID] = self::SAMPLE_TAX . rand();
         } catch (Exception $e) {
             return new JsonResponse($this->buildErrorResponseBody($e->getMessage()));
@@ -159,8 +159,6 @@ class TaxAPIController
 
         ];
         return new JsonResponse($value);
-
-//        return new JsonResponse(["**{$id}** has been voided"]);
     }
 
     /**
