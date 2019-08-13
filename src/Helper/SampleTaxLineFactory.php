@@ -10,6 +10,7 @@ class SampleTaxLineFactory
     const DOCUMENTS = 'documents';
     const ITEMS = 'items';
     const SHIPPING = 'shipping';
+    const WRAPPING = 'wrapping';
     const HANDLING = 'handling';
     const EXTERNAL_ID = 'external_id';
 
@@ -21,9 +22,9 @@ class SampleTaxLineFactory
      * @param string $type
      * @return array
      */
-    public function processItem(array $data, string $type): array
+    public function processItem(array $data, string $type, $taxExempt = false): array
     {
-        $item = new Item($data, $type);
+        $item = new Item($data, $type, $taxExempt);
         $taxDetails[$type] = $item->toArray();
         return $taxDetails;
     }

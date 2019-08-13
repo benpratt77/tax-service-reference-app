@@ -33,18 +33,23 @@ class StubbedTaxAPIService implements SimpleAPIServiceInterface
      */
     public function getEstimate(array $requestPayload, $externalId = null): array
     {
-        $result[SampleTaxLineFactory::EXTERNAL_ID] = $externalId ?? self::ID_VALUE;
-        $this->logger->info("{$result[SampleTaxLineFactory::EXTERNAL_ID]} sent a document request");
-        $result['id'] = self::ID_VALUE;
+        $result = [];
+        if ($externalId) {
+            $result[SampleTaxLineFactory::EXTERNAL_ID] = $externalId;
+        }
+        $customerIsTaxExempt = ($requestPayload['customer']['taxability_code'] == "TaxEvasion") ? true : false;
+        if ($externalId) {
+            $this->logger->info("{$result[SampleTaxLineFactory::EXTERNAL_ID]} sent a document request");
+        }
         $documents = $requestPayload[SampleTaxLineFactory::DOCUMENTS];
         foreach ($documents as $document) {
-
+            $result['id'] = $document['id'];
             foreach ($document[SampleTaxLineFactory::ITEMS] as $item) {
-                $taxLine = $this->sampleTaxLineFactory->processItem($item, self::ITEM_SINGULAR);
+                $taxLine = $this->sampleTaxLineFactory->processItem($item, self::ITEM_SINGULAR, $customerIsTaxExempt);
                 $result[SampleTaxLineFactory::ITEMS][] = $taxLine[self::ITEM_SINGULAR];
             }
-            $shipping = new Item($document[SampleTaxLineFactory::SHIPPING], SampleTaxLineFactory::SHIPPING);
-            $handling = new Item($document[SampleTaxLineFactory::HANDLING], SampleTaxLineFactory::HANDLING);
+            $shipping = new Item($document[SampleTaxLineFactory::SHIPPING], SampleTaxLineFactory::SHIPPING, $customerIsTaxExempt);
+            $handling = new Item($document[SampleTaxLineFactory::HANDLING], SampleTaxLineFactory::HANDLING, $customerIsTaxExempt);
             $result[SampleTaxLineFactory::SHIPPING] = $shipping->toArray();
             $result[SampleTaxLineFactory::HANDLING] = $handling->toArray();
         }

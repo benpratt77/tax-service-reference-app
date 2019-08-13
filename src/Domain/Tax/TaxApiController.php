@@ -74,7 +74,7 @@ class TaxAPIController
         try {
             $estimate = $this->taxAPIService->getEstimate($requestPayload);
             $result[SampleTaxLineFactory::DOCUMENTS][] = $estimate;
-            $result[self::ID] = self::SAMPLE_TAX . rand();
+            $result[self::ID] = $requestPayload['id'];
         } catch (Exception $e) {
             return new JsonResponse($this->buildErrorResponseBody($e->getMessage()));
         }
@@ -101,7 +101,7 @@ class TaxAPIController
         try {
             $commit = $this->taxAPIService->commitQuote($requestPayload);
             $result[SampleTaxLineFactory::DOCUMENTS][] = $commit;
-            $result[self::ID] = self::SAMPLE_TAX . rand();
+            $result[self::ID] = $requestPayload['id'];
         } catch (Exception $e) {
             return new JsonResponse($this->buildErrorResponseBody($e->getMessage()));
         }
@@ -131,7 +131,7 @@ class TaxAPIController
             $commit = $this->taxAPIService->adjustQuote($requestPayload, $id);
             $result[SampleTaxLineFactory::DOCUMENTS][] = $commit;
 //            $result['adjust_description'] = $requestPayload['adjust_description'] ?? 'no reason provided';
-            $result[self::ID] = self::SAMPLE_TAX . rand();
+            $result[self::ID] = $requestPayload['id'];
         } catch (Exception $e) {
             return new JsonResponse($this->buildErrorResponseBody($e->getMessage()));
         }
