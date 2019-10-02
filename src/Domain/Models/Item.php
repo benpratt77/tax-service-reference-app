@@ -13,12 +13,13 @@ class Item
 
     public function __construct($data, string $type, $customerIsTaxExempt = false)
     {
-        $taxCode = $data['tax_class']['code'];
+        $taxClass = $data['tax_class'];
+        $taxCode = $taxClass['code'];
         if ($customerIsTaxExempt) {
             $taxCode = "yeah-nah";
         }
         $this->id = $data['id'];
-        $this->price = new Price($data['price'], $taxCode);
+        $this->price = new Price($data['price'], $taxCode, $taxClass['class_id'], $taxClass['name']);
         $this->type = $type;
         if ($data[SampleTaxLineFactory::WRAPPING]) {
             $this->wrapping = new Item($data[SampleTaxLineFactory::WRAPPING], SampleTaxLineFactory::WRAPPING, $customerIsTaxExempt);
