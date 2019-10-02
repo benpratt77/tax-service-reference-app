@@ -15,14 +15,27 @@ class Price
     private $totalTax;
     private $salesTaxSummary;
 
-    public function __construct(array $data, $taxCode)
+    public function __construct(array $data, $taxCode, $id, $name)
     {
-        $exempt = ($taxCode == 'yeah-nah') ? true : false;
-        $this->totalTax = $exempt ? 0 : $this->calculateTax($data[self::AMOUNT]);
+        $exempt = $this->isTaxExempt($taxCode, $data[self::AMOUNT]);
+        $this->totalTax = $this->calculateTax($data[self::AMOUNT]);
         $this->amountInclusive = $data[self::AMOUNT] + $this->totalTax;
         $this->amountExclusive = $data[self::AMOUNT];
         $this->taxRate = $exempt ? 0 : SampleTaxLineFactory::SAMPLE_TAX_RATE;
-        $this->salesTaxSummary = new SalesTaxSummary($this->totalTax, $exempt, $taxCode);
+        $this->salesTaxSummary = new SalesTaxSummary($this->totalTax, $exempt, $taxCode, $id, $name);
+    }
+
+    private function isTaxExempt($taxCode, $amount): bool
+    {
+        if($taxCode === 'yeah-nah') {
+            return true;
+        }
+
+        if($amount <= 0){
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -47,7 +60,7 @@ class Price
      */
     private function calculateTax(float $amount, $exempt = false): float
     {
-        if ($exempt) {
+        if ($exempt || $amount < 0) {
             return 0;
         }
         if ($amount > 0) {

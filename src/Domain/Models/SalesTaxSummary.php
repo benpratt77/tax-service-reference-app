@@ -16,14 +16,14 @@ class SalesTaxSummary
     private $taxClass;
     private $taxCode;
 
-    public function __construct($tax, $exempt, $taxCode)
+    public function __construct($tax, $exempt, $taxCode, $id, $name)
     {
         $this->name = self::SUMMARY_NAME;
         $this->taxCode = $taxCode;
         $this->rate = $exempt ? 0 : SampleTaxLineFactory::SAMPLE_TAX_RATE;
         $this->amount = $tax;
         /** @var TaxClass taxClass */
-        $this->taxClass = new TaxClass();
+        $this->taxClass = new TaxClass($id, $taxCode, $name);
     }
 
     /**
