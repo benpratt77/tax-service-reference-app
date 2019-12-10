@@ -41,6 +41,9 @@ class StubbedTaxAPIService implements SimpleAPIServiceInterface
             throw new \Exception('oh noes');
         }
         $customerIsTaxExempt = ($requestPayload['customer']['taxability_code'] == "TaxEvasion") ? true : false;
+        if ($requestPayload['customer']['taxability_code'] == 'breakDatTax') {
+            throw new \Exception('oh noes');
+        }
         if ($externalId) {
             $this->logger->info("{$result[SampleTaxLineFactory::EXTERNAL_ID]} sent a document request");
         }
