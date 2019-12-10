@@ -21,7 +21,7 @@ Check composer.json but in general:
     $ COMPOSER_PROCESS_TIMEOUT=0 composer run
 ```
 
-Then, browse to http://localhost:8888
+Then, browse to http://localhost:9999
 
 **Note** To enable xdebug support replace `run` with `devrun` (see composer.json 'scripts' sections for details)
 
