@@ -6,12 +6,9 @@ use BCSample\Tax\Helper\SampleTaxLineFactory;
 
 class SalesTaxSummary
 {
-
     const SUMMARY_NAME = 'BRUTAL TAX';
     const NAME = 'name';
     const SAMPLE_NAMES = ['STATE TAX', 'COUNTY TAX', 'BRUTAL TAX'];
-    const TAX_CODES = ['ONE_TAX', 'TWO_TAX', 'THREE_TAX'];
-
 
     private $name;
     private $rate;
@@ -59,7 +56,7 @@ class SalesTaxSummary
                         $this->taxClass->toArray(),
                         $divisor
                     );
-                break;
+                    break;
 
                 case 'SPLITTAX1':
                     $divisor = 3;
