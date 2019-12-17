@@ -63,7 +63,9 @@ The default landing page contains an overview of how to trigger various Tax resp
 - Applying tax code as `SPLITTAX` to the product will apply tax with its two sub components i.e. COUNTY TAX and STATE TAX.
 - Whereas, tax code as `SPLITTAX1` will apply tax with its three sub components i.e. COUNTY TAX, STATE TAX and BRUTAL TAX.
   
-
+- We can now simulate a breakage with SampleTax, by passing in `breakDatTax` as the customers taxability_code.
+- We can now have zero tax for a customer by passing in `TaxEvasion` as the customers taxability_code.
+- We can now have zero tax apply to a product by passing in `yeah-nah` to the items tax_class->code.
 ## Disclaimer
 
 This is just one way to implement your service integration, there is no restriction on how you structure your application or what framework you use. 

@@ -19,8 +19,14 @@ class Price
     {
         $exempt = $this->isTaxExempt($taxCode, $data[self::AMOUNT]);
         $this->totalTax = $this->calculateTax($data[self::AMOUNT]);
-        $this->amountInclusive = $data[self::AMOUNT] + $this->totalTax;
+        $this->amountInclusive = $data[self::AMOUNT];
         $this->amountExclusive = $data[self::AMOUNT];
+        if (!$data['tax_inclusive']) {
+            $this->amountInclusive += $this->totalTax;
+        }else{
+            $this->amountExclusive -= $this->totalTax;
+        }
+
         $this->taxRate = $exempt ? 0 : SampleTaxLineFactory::SAMPLE_TAX_RATE;
         $this->salesTaxSummary = new SalesTaxSummary($this->totalTax, $exempt, $taxCode, $id, $name);
     }
@@ -44,8 +50,8 @@ class Price
     public function toArray(): array
     {
         $output = [];
-        $output['amount_inclusive'] = $this->amountInclusive;
-        $output['amount_exclusive'] = $this->amountExclusive;
+        $output['amount_inclusive'] = round($this->amountInclusive, 2);
+        $output['amount_exclusive'] = round($this->amountExclusive, 2);
         $output['total_tax'] = $this->totalTax;
         $output['tax_rate'] = $this->taxRate;
         $output['sales_tax_summary'] = $this->salesTaxSummary->toArray();
