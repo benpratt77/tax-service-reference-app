@@ -37,7 +37,6 @@ class SalesTaxSummary
         $divisor = 1;
 
         if (in_array($this->taxCode, ['SPLITTAX', 'SPLITTAX1'])) {
-
             switch ($this->taxCode) {
                 case 'SPLITTAX':
                     $divisor = 2;
@@ -98,7 +97,15 @@ class SalesTaxSummary
         return $output;
     }
 
-    public function getSummaryLines($id, $name, $amount, $tax_class, $divisor)
+    /**
+     * @param $id
+     * @param $name
+     * @param $amount
+     * @param $tax_class
+     * @param $divisor
+     * @return array
+     */
+    public function getSummaryLines($id, $name, $amount, $tax_class, $divisor): array
     {
         $output = [];
         $output[self::NAME] = $name;
