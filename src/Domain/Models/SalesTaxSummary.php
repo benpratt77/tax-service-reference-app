@@ -6,13 +6,13 @@ use BCSample\Tax\Helper\SampleTaxLineFactory;
 
 class SalesTaxSummary
 {
-    const SUMMARY_NAME = 'BRUTAL TAX';
     const NAME = 'name';
     const SAMPLE_NAMES = ['STATE TAX', 'COUNTY TAX', 'BRUTAL TAX'];
+    const SUMMARY_NAME = 'BRUTAL TAX';
 
+    private $amount;
     private $name;
     private $rate;
-    private $amount;
     private $taxClass;
     private $taxCode;
 
@@ -41,7 +41,7 @@ class SalesTaxSummary
                 case 'SPLITTAX':
                     $divisor = 2;
                     $output[] = $this->getSummaryLines(
-                        self::SAMPLE_NAMES[0],
+                        "0",
                         self::SAMPLE_NAMES[0],
                         $amount,
                         $this->taxClass->toArray(),
@@ -49,7 +49,7 @@ class SalesTaxSummary
                     );
 
                     $output[] = $this->getSummaryLines(
-                        self::SAMPLE_NAMES[1],
+                        "1",
                         self::SAMPLE_NAMES[1],
                         $amount,
                         $this->taxClass->toArray(),
@@ -60,7 +60,7 @@ class SalesTaxSummary
                 case 'SPLITTAX1':
                     $divisor = 3;
                     $output[] = $this->getSummaryLines(
-                        self::SAMPLE_NAMES[0],
+                        "0",
                         self::SAMPLE_NAMES[0],
                         $amount,
                         $this->taxClass->toArray(),
@@ -68,7 +68,7 @@ class SalesTaxSummary
                     );
 
                     $output[] = $this->getSummaryLines(
-                        self::SAMPLE_NAMES[1],
+                        "1",
                         self::SAMPLE_NAMES[1],
                         $amount,
                         $this->taxClass->toArray(),
@@ -76,7 +76,7 @@ class SalesTaxSummary
                     );
 
                     $output[] = $this->getSummaryLines(
-                        self::SAMPLE_NAMES[2],
+                        "2",
                         self::SAMPLE_NAMES[2],
                         $amount,
                         $this->taxClass->toArray(),
@@ -86,7 +86,7 @@ class SalesTaxSummary
             }
         } else {
             $output[] = $this->getSummaryLines(
-                self::SUMMARY_NAME,
+                "0",
                 $this->name,
                 $amount,
                 $this->taxClass->toArray(),
