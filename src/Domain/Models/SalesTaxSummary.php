@@ -88,9 +88,9 @@ class SalesTaxSummary
             $taxClassArray = $this->taxClass->toArray();
 
             if ($taxClassArray['name'] === 'Shipping' || $taxClassArray['name'] === 'Handling'){
-               $rateId = 5;
+               $rateId = "5";
             } else {
-                $rateId = 1;
+                $rateId = "1";
             }
                 $output[] = $this->getSummaryLines(
                 $rateId,
