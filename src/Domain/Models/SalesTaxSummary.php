@@ -41,7 +41,7 @@ class SalesTaxSummary
                 case 'SPLITTAX':
                     $divisor = 2;
                     $output[] = $this->getSummaryLines(
-                        "1",
+                        "1AA",
                         self::SAMPLE_NAMES[0],
                         $amount,
                         $this->taxClass->toArray(),
@@ -88,9 +88,9 @@ class SalesTaxSummary
             $taxClassArray = $this->taxClass->toArray();
 
             if ($taxClassArray['name'] === 'Shipping' || $taxClassArray['name'] === 'Handling'){
-               $rateId = 5;
+               $rateId = "5";
             } else {
-                $rateId = 1;
+                $rateId = "1";
             }
                 $output[] = $this->getSummaryLines(
                 $rateId,
