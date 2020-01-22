@@ -19,7 +19,9 @@ class Price
     {
         $exempt = $this->isTaxExempt($taxCode, $data[self::AMOUNT]);
         $this->totalTax = $this->calculateTax($data[self::AMOUNT]);
+
         $this->amountInclusive = $data[self::AMOUNT];
+
         $this->amountExclusive = $data[self::AMOUNT];
         if (!$data['tax_inclusive']) {
             $this->amountInclusive += $this->totalTax;
