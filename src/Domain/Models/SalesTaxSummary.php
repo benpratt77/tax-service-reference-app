@@ -41,7 +41,7 @@ class SalesTaxSummary
                 case 'SPLITTAX':
                     $divisor = 2;
                     $output[] = $this->getSummaryLines(
-                        "0",
+                        "1",
                         self::SAMPLE_NAMES[0],
                         $amount,
                         $this->taxClass->toArray(),
@@ -49,7 +49,7 @@ class SalesTaxSummary
                     );
 
                     $output[] = $this->getSummaryLines(
-                        "1",
+                        "2",
                         self::SAMPLE_NAMES[1],
                         $amount,
                         $this->taxClass->toArray(),
@@ -60,7 +60,7 @@ class SalesTaxSummary
                 case 'SPLITTAX1':
                     $divisor = 3;
                     $output[] = $this->getSummaryLines(
-                        "0",
+                        "1",
                         self::SAMPLE_NAMES[0],
                         $amount,
                         $this->taxClass->toArray(),
@@ -68,7 +68,7 @@ class SalesTaxSummary
                     );
 
                     $output[] = $this->getSummaryLines(
-                        "1",
+                        "2",
                         self::SAMPLE_NAMES[1],
                         $amount,
                         $this->taxClass->toArray(),
@@ -76,7 +76,7 @@ class SalesTaxSummary
                     );
 
                     $output[] = $this->getSummaryLines(
-                        "2",
+                        "3",
                         self::SAMPLE_NAMES[2],
                         $amount,
                         $this->taxClass->toArray(),
@@ -86,7 +86,7 @@ class SalesTaxSummary
             }
         } else {
             $output[] = $this->getSummaryLines(
-                "0",
+                "1",
                 $this->name,
                 $amount,
                 $this->taxClass->toArray(),
