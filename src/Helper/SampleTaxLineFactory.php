@@ -20,6 +20,7 @@ class SampleTaxLineFactory
      *
      * @param array $data
      * @param string $type
+     * @param bool $taxExempt
      * @return array
      */
     public function processItem(array $data, string $type, $taxExempt = false): array
