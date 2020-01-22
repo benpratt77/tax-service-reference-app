@@ -21,10 +21,12 @@ Check composer.json but in general:
     $ COMPOSER_PROCESS_TIMEOUT=0 composer run
 ```
 
-Then, browse to http://localhost:8888
+Then, browse to http://localhost:9999
 
 **Note** To enable xdebug support replace `run` with `devrun` (see composer.json 'scripts' sections for details)
 
+In case ```COMPOSER_PROCESS_TIMEOUT=0 composer run``` doesn't work then execute ```php -S localhost:9999 -t web```
+ 
 ## Running on Heroku
 
 [![Deploy to Heroku](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
@@ -55,7 +57,15 @@ The default landing page contains an overview of how to trigger various Tax resp
 
 - `SimpleAPIServiceInterface.php` a simple interface that you can extend from to build to your own tax service (just change the provider above to instantiate your new service instead of the stubbed one)
 
+## Updates
 
+- By default this tax provider will apply BRUTAL TAX of 50%.
+- Applying tax code as `SPLITTAX` to the product will apply tax with its two sub components i.e. COUNTY TAX and STATE TAX.
+- Whereas, tax code as `SPLITTAX1` will apply tax with its three sub components i.e. COUNTY TAX, STATE TAX and BRUTAL TAX.
+  
+- We can now simulate a breakage with SampleTax, by passing in `breakDatTax` as the customers taxability_code.
+- We can now have zero tax for a customer by passing in `TaxEvasion` as the customers taxability_code.
+- We can now have zero tax apply to a product by passing in `yeah-nah` to the items tax_class->code.
 ## Disclaimer
 
 This is just one way to implement your service integration, there is no restriction on how you structure your application or what framework you use. 

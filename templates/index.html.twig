@@ -1,19 +1,59 @@
 {% extends "layout.html.twig" %}
 
 {% block content %}
-<div>
-    Welcome to Sample Tax, an example of a Tax Integration with BigCommerce OpenTaxAPI.
-</div>
-<br/>
-<div>
-    <p>POST to /sample-tax-service/estimate in the supported format to return a sample tax estimate.</p>
-    <p>POST to /sample-tax-service/commit in the supported format to simulate a commit and receive a sample tax estimate.</p>
-    {# The below tamplates are not ready for production and require updating to reflect the expectations #}
-    {#<h5>Examples:</h5>#}
-    {#<ul>#}
-        {#<li><a href="/samplerequest">Sample Estimate request</a> -- This is an example of what BigCommerce will send</li>#}
-        {#<li><a href="/sampleresponse">Sample Estimate response</a> -- This is an example of what BigCommerce expects to receive back</li>#}
-    {#</ul>#}
-</div>
-<br/>
+    <div>
+        Welcome to Sample Tax, an example of a Tax Integration with BigCommerce
+        OpenTaxAPI.
+    </div>
+    <br/>
+    <div>
+        <p>POST to /sample-tax-service/estimate in the supported format to return a
+            sample tax estimate.</p>
+        <p>POST to /sample-tax-service/commit in the supported format to simulate a
+            commit and receive a sample tax estimate.</p>
+
+    </div>
+    <div>
+        <p>
+            By default this tax provider will apply BRUTAL TAX of 50%.
+        </p>
+    </div>
+    <div>
+        <h2>Developer Functionality</h2>
+        <p>We have added some functionality for developer testing to the
+            SampleTaxProvider</p>
+
+        <p>In order to facilitate certain flows, passing in specific tax codes can
+            illicit differing response from the provider.</p>
+        <ul>
+            <li>
+                Item based codes
+                <ul>
+                    <li>Applying tax_code as `SPLITTAX` to the item will apply tax
+                        with its two sub components i.e. COUNTY TAX and STATE TAX.
+                    </li>
+                    <li>Applying tax_code as `SPLITTAX1` to the item will apply tax
+                        with its three sub components i.e. COUNTY TAX, STATE TAX and
+                        BRUTAL TAX
+                    </li>
+                    <li>We can now have zero tax apply to a product by passing in
+                        `yeah-nah` to the items tax_class->code.
+                    </li>
+
+                </ul>
+            </li>
+            <li>
+                Customer Based codes
+                <ul>
+                    <li>We can now have zero tax apply to a product by passing in
+                        `yeah-nah` to the items tax_class->code.
+                    </li>
+                    <li>We can now simulate a breakage with SampleTax, by passing in
+                        `breakDatTax` as the customers taxability_code.
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <br/>
 {% endblock %}

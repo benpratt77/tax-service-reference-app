@@ -30,6 +30,7 @@ class StubbedTaxAPIService implements SimpleAPIServiceInterface
      * @param array $requestPayload
      * @param null $externalId
      * @return array
+     * @throws \Exception
      */
     public function getEstimate(array $requestPayload, $externalId = null): array
     {
@@ -63,6 +64,7 @@ class StubbedTaxAPIService implements SimpleAPIServiceInterface
      * At this stage we are just simulating a quote, in future we will add functionality to commit.
      * @param array $requestPayload
      * @return array
+     * @throws \Exception
      */
     function commitQuote(array $requestPayload): array
     {
@@ -74,6 +76,7 @@ class StubbedTaxAPIService implements SimpleAPIServiceInterface
      * @param array $requestPayload
      * @param string $id
      * @return array
+     * @throws \Exception
      */
     function adjustQuote(array $requestPayload, string $id): array
     {
