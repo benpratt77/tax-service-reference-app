@@ -85,8 +85,15 @@ class SalesTaxSummary
                     break;
             }
         } else {
-            $output[] = $this->getSummaryLines(
-                "1",
+            $taxClassArray = $this->taxClass->toArray();
+
+            if ($taxClassArray['name'] === 'Shipping' || $taxClassArray['name'] === 'Handling'){
+               $rateId = 5;
+            } else {
+                $rateId = 1;
+            }
+                $output[] = $this->getSummaryLines(
+                $rateId,
                 $this->name,
                 $amount,
                 $this->taxClass->toArray(),
