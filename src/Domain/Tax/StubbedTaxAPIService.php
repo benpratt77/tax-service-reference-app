@@ -34,7 +34,7 @@ class StubbedTaxAPIService implements SimpleAPIServiceInterface
      */
     public function getEstimate(array $requestPayload, $externalId = null): array
     {
-        sleep(25);
+        $this->detectAndSleep($requestPayload);
         $result = [];
         if ($externalId) {
             $result[SampleTaxLineFactory::EXTERNAL_ID] = $externalId;
@@ -67,7 +67,7 @@ class StubbedTaxAPIService implements SimpleAPIServiceInterface
      * @return array
      * @throws \Exception
      */
-    function commitQuote(array $requestPayload): array
+    public function commitQuote(array $requestPayload): array
     {
         return $this->getEstimate($requestPayload);
     }
@@ -79,7 +79,7 @@ class StubbedTaxAPIService implements SimpleAPIServiceInterface
      * @return array
      * @throws \Exception
      */
-    function adjustQuote(array $requestPayload, string $id): array
+    public function adjustQuote(array $requestPayload, string $id): array
     {
         return $this->getEstimate($requestPayload, $id);
     }
@@ -88,8 +88,39 @@ class StubbedTaxAPIService implements SimpleAPIServiceInterface
      * Since our application does not have storage we don't need to actually do anything here.
      * @return bool
      */
-    function void(): bool
+    public function void(): bool
     {
         return true;
+    }
+
+    /**
+     * Detects if we need to fake a long response time based on the customers tax code
+     * @param array $requestPayload
+     */
+    public function detectAndSleep(array $requestPayload): void
+    {
+        if (!isset($requestPayload['customer']['taxability_code'])) {
+            return;
+        }
+
+        $taxCode = $requestPayload['customer']['taxability_code'];
+        switch($taxCode) {
+            case 'dozy':
+                $timeout = 10;
+                break;
+            case 'yawn':
+                $timeout = 20;
+                break;
+            case 'sleepyTimes':
+                $timeout = 30;
+                break;
+            case '502':
+                $timeout = 45;
+                break;
+            default:
+                $timeout = 0;
+        }
+
+        sleep($timeout);
     }
 }
