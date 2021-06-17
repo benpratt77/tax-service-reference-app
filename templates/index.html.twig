@@ -11,7 +11,6 @@
             sample tax estimate.</p>
         <p>POST to /sample-tax-service/commit in the supported format to simulate a
             commit and receive a sample tax estimate.</p>
-
     </div>
     <div>
         <p>
@@ -39,7 +38,6 @@
                     <li>We can now have zero tax apply to a product by passing in
                         `yeah-nah` to the items tax_class->code.
                     </li>
-
                 </ul>
             </li>
             <li>
@@ -50,6 +48,21 @@
                     </li>
                     <li>We can now simulate a breakage with SampleTax, by passing in
                         `breakDatTax` as the customers taxability_code.
+                    </li>
+                    <li>We can now simulate a breakage with SampleTax, by passing in
+                        `breakDatTax` as the customers taxability_code.
+                    </li>
+                    <li>We can now simulate a slow response from SampleTax (10 seconds), by passing in
+                        `dozy` as the customers taxability_code.
+                    </li>
+                    <li>We can now simulate a slower response from SampleTax (20 seconds), by passing in
+                        `yawn` as the customers taxability_code.
+                    </li>
+                    <li>We can now simulate a really slow response from SampleTax (30 seconds), by passing in
+                        `sleepyTimes` as the customers taxability_code.
+                    </li>
+                    <li>We can now simulate a stupidly slow response from SampleTax (45 seconds), by passing in
+                        `502` as the customers taxability_code.
                     </li>
                 </ul>
             </li>
