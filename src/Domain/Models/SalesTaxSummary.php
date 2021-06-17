@@ -41,7 +41,7 @@ class SalesTaxSummary
                 case 'SPLITTAX':
                     $divisor = 2;
                     $output[] = $this->getSummaryLines(
-                        "1",
+                        "1AA",
                         self::SAMPLE_NAMES[0],
                         $amount,
                         $this->taxClass->toArray(),
