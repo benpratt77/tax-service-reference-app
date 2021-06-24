@@ -112,7 +112,7 @@ class StubbedTaxAPIService implements SimpleAPIServiceInterface
                 $timeout = 20;
                 break;
             case 'sleepyTimes':
-                $timeout = 30;
+                $timeout = 29;
                 break;
             case '502':
                 $timeout = 45;
