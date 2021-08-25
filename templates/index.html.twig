@@ -1,69 +1,125 @@
 {% extends "layout.html.twig" %}
-
 {% block content %}
     <div>
-        Welcome to Sample Tax, an example of a Tax Integration with BigCommerce
-        OpenTaxAPI.
-    </div>
-    <br/>
-    <div>
-        <p>POST to /sample-tax-service/estimate in the supported format to return a
-            sample tax estimate.</p>
-        <p>POST to /sample-tax-service/commit in the supported format to simulate a
-            commit and receive a sample tax estimate.</p>
-    </div>
-    <div>
+        <h2>
+            SampleTax overview
+        </h2>
         <p>
-            By default this tax provider will apply BRUTAL TAX of 50%.
+            SampleTax is an example tax provider to demonstrate the usage of the
+            <a href="https://developer.bigcommerce.com/api-reference/providers/tax-provider-api"
+               target="_blank">BigCommerce Tax Provider API spec.</a>
+        </p>
+        <p>
+            Its primary use was originally as a proof of concept for the Tax Provider
+            API, however it has evolved with functionality to assist in testing
+            changes/debugging errors within the domain.
+        </p>
+        <p>
+            It also stands as an example of how integration with the BigCommerce Tax
+            Provider API can be achieved.
         </p>
     </div>
     <div>
-        <h2>Developer Functionality</h2>
-        <p>We have added some functionality for developer testing to the
-            SampleTaxProvider</p>
-
-        <p>In order to facilitate certain flows, passing in specific tax codes can
-            illicit differing response from the provider.</p>
+        <h2>
+            SampleTax provides:
+        </h2>
         <ul>
             <li>
-                Item based codes
-                <ul>
-                    <li>Applying tax_code as `SPLITTAX` to the item will apply tax
-                        with its two sub components i.e. COUNTY TAX and STATE TAX.
-                    </li>
-                    <li>Applying tax_code as `SPLITTAX1` to the item will apply tax
-                        with its three sub components i.e. COUNTY TAX, STATE TAX and
-                        BRUTAL TAX
-                    </li>
-                    <li>We can now have zero tax apply to a product by passing in
-                        `yeah-nah` to the items tax_class->code.
-                    </li>
-                </ul>
+                Quotation of tax rates given a tax quote request via API.
             </li>
             <li>
-                Customer Based codes
-                <ul>
-                    <li>We can now have zero tax apply to all products (make the customer tax exempt) by passing in
-                        `TaxEvasion` as the customers taxability_code.
-                    </li>
-                    <li>We can now simulate a breakage with SampleTax, by passing in
-                        `breakDatTax` as the customers taxability_code.
-                    </li>
-                    <li>We can now simulate a slow response from SampleTax (10 seconds), by passing in
-                        `dozy` as the customers taxability_code.
-                    </li>
-                    <li>We can now simulate a slower response from SampleTax (20 seconds), by passing in
-                        `yawn` as the customers taxability_code.
-                    </li>
-                    <li>We can now simulate a really slow response from SampleTax (30 seconds), by passing in
-                        `sleepyTimes` as the customers taxability_code.
-                    </li>
-                    <li>We can now simulate a stupidly slow response from SampleTax (45 seconds), by passing in
-                        `502` as the customers taxability_code.
-                    </li>
-                </ul>
+                The ability to elicit different results based on tax classes.
             </li>
         </ul>
     </div>
-    <br/>
+    <div>
+        <h2>
+            Supported operations:
+        </h2>
+        <p>
+            SampleTax supports all endpoints required for integration
+        </p>
+        <p>
+            `/estimate` for retrieving tax quotes.
+        </p>
+        <p>
+            `/adjust` for adjusting a previous submitted tax document. At present
+            this just simulates the action and returns an estimate based on the
+            updated items in the tax quote request.
+        </p>
+        <p>
+            `/commit` for tax document submission. At present this just simulates the
+            action and returns an estimate.
+        </p>
+        <p>
+            `/void` for deleting a previously submitted tax document. At present this
+            will always return `{"success": true}`.
+        </p>
+
+        <p>
+            Although it should be noted that SampleTax at present does not have
+            storage and thus the commit, adjust and void operations are essentially
+            mocked.
+        </p>
+    </div>
+    <div>
+        <h2>
+            Features
+        </h2>
+        <p>
+            SampleTax is able to mock certain behaviour that we might expect an
+            external provider to exhibit.
+        </p>
+        <h3>
+            Item based codes:
+        </h3>
+        <ul>
+            <li>
+                Applying the tax_code as `SPLITTAX` to the item will apply tax with
+                its two sub components i.e. COUNTY TAX and STATE TAX.
+            </li>
+            <li>
+                Applying the tax_code as `SPLITTAX1` to the item will apply tax with
+                its three sub components i.e. COUNTY TAX, STATE TAX and BRUTAL TAX.
+            </li>
+            <li>
+                Applying the tax_code as `yeah-nah` to the item will result in the
+                item having zero tax applied to it.
+            </li>
+        </ul>
+        <h3>
+            Customer based codes:
+        </h3>
+        <ul>
+            <li>
+                Applying the taxability_code `TaxEvasion` to a customer will lead to
+                zero tax to all products (Make the customer tax exempt).
+            </li>
+            <li>
+                Applying the taxability_code `breakDatTax` to a customer will lead to
+                SampleTax throwing an error. This is so we can simulate how OpenTax
+                handles errors thrown by a provider.
+            </li>
+            <li>
+                Applying the taxability_code `dozy` to a customer will lead to
+                SampleTax simulating a slow response by delaying the response by 10
+                seconds.
+            </li>
+            <li>
+                Applying the taxability_code `yawn` to a customer will lead to
+                SampleTax simulating a slow response by delaying the response by 20
+                seconds.
+            </li>
+            <li>
+                Applying the taxability_code `sleepyTimes` to a customer will lead to
+                SampleTax simulating a slow response by delaying the response by 29
+                seconds.
+            </li>
+            <li>
+                Applying the taxability_code `502` to a customer will lead to
+                SampleTax simulating a slow response by delaying the response by 45
+                seconds.
+            </li>
+        </ul>
+    </div>
 {% endblock %}
