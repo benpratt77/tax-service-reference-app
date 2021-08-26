@@ -18,7 +18,7 @@ Check composer.json but in general:
 ```
     $ git clone ...
     $ composer install
-    $ COMPOSER_PROCESS_TIMEOUT=0 composer run
+    $ COMPOSER_PROCESS_TIMEOUT=0 composer run-script run
 ```
 
 Then, browse to http://localhost:9999
